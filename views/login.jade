@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 Log in
+
+  if errors.length > 0
+    for error in errors
+      div.alert.alert-danger
+        p= error
+
+  form(action='/login/login',method='POST')
+    input(type='hidden',name='_csrf', value='#{ csrfToken }')
+    input.form-control(type='text',name='username',placeholder='Username...')
+    input.form-control(type='password',name='password',placeholder='Password...')
+    button.btn.btn-primary(type='submit') Log in

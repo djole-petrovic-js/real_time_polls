@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1 Polls
+
+  div.row()
+    div.col-md-12
+      ul.list-group
+        for poll in polls
+          li.list-group-item
+            a(href='/polls/monitor/#{ poll.id_poll }/#{ poll.poll }') #{ poll.poll }
+
+  div.row
+    div.col-md-12
+      div.alert.alert-info
+        -for ( var i = 1 ; i <= lastPage ; i++  ) {
+          if i == currentPage
+            p #{ i }
+          else
+            if q
+              p
+                a(href='/polls/#{ i }?q=#{ q }') #{ i }
+            else
+              p 
+                a(href='/polls/#{ i }') #{ i }
+        -}

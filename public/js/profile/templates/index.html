@@ -1,0 +1,47 @@
+<h1>Profile Home</h1>
+
+<h2>Personal info</h2>
+
+<div ng-if="user">
+  <p>Username : {{ user.username }}</p>
+  <p>Email : {{ user.email }}</p>
+</div>
+
+<form>
+  <h1>Change Username</h1>
+  <div class="form-group">
+    <input ng-model="newUsername" type="text" class="form-control" placeholder="Username...">
+    <button ng-click="confirmUsernameChange()" class="btn btn-primary">Change username...</button>
+  </div>
+</form>
+
+<h2>Change Password</h2>
+<form>
+  <div class="form-group">
+    <label>Current Password</label>
+    <input ng-model="passwords.current" class="form-control" type="password">
+  </div>
+  <div class="form-group">
+    <label>New Password</label>
+    <input ng-model="passwords.newPassword" class="form-control" type="password">
+  </div>
+  <div class="form-group">
+    <label>Confirm New Password</label>
+    <input ng-model="passwords.confirmNew" class="form-control" type="password">
+  </div>
+  <button ng-click="confirmPasswordChange()" class="btn btn-primary">
+    Change password...
+  </button>
+</form>
+<br>
+<br>
+
+<form>
+  <div class="form-group">
+    <label>Please be carefull...</label>
+    <br>
+    <label>Your Password</label>
+    <input ng-model="delAccountPassword" class="form-control" placeholder="password..." type="text">
+    <button ng-click="confirmDeleteAccount()" class="btn btn-danger">Delete Account!</button>
+  </div>
+</form>

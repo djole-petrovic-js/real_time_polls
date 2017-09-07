@@ -1,0 +1,31 @@
+<h1>My polls</h1>
+<div ng-if="polls.length === 0" class="alert alert-info">
+  <p>You dont have any polls at the moment, go create one!</p>
+</div>
+<ul ng-else class="list-group">
+  <li class="list-group-item alert alert-info" ng-repeat="poll in polls">
+    <p>Poll name : {{ poll.poll }}</p>
+    <p>Number of votes : {{ poll.votes }}</p>
+    <p>Poll active : {{ poll.is_active ? 'Yes' : 'No' }}</p>
+    <p>Created at {{ poll.created_date | date }}</p>
+    <a href="/polls/monitor/{{ poll.id_poll }}" target="_blank" class="btn btn-primary">Monitor</a>
+    <button ng-click="poll.showOptions = !poll.showOptions" class="btn btn-primary">
+      {{ !poll.showOptions ? 'Show choices' : 'Hide choices' }}
+    </button>
+    <button ng-if="poll.is_active" class="btn btn-primary" ng-click="confirmDisablePoll(poll.id_poll)">
+      Disable Poll
+    </button>
+    <button class="btn btn-danger" ng-click="confirmDeletePoll(poll.id_poll)">
+      Delete Poll
+    </button>  
+    <div ng-if="poll.showOptions">
+      <p>Choices</p>
+      <ul class="list-group">
+        <li ng-repeat="choice in poll.Choices" class="list-group-item">
+          {{ choice.choice }}
+          <p>Number of votes {{ choice.number_of_votes }}</p>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>

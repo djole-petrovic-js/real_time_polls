@@ -1,0 +1,46 @@
+extends layout
+
+block head
+  script(src='/js/angular/angular.min.js')
+  script(src='/js/angular/angular-route.min.js')
+  script(src='/js/angular/angular-sanitize.min.js')
+
+block content
+  div.row
+    div.col-md-12
+      h1 Admin Panel
+
+  div.row
+    div.col-md-2
+      ul.list-group
+        li.list-group-item
+          a(href='#!/') Home
+        li.list-group-item
+          a(href='#!/users') Users
+        li.list-group-item
+          a(href='#!/allPolls') Polls
+        li.list-group-item
+          a(href='#!/addAccount') Add Account
+        li.list-group-item
+          a(href='#!/roles') Roles
+        li.list-group-item
+          a(href='#!/logs') Logs
+        li.list-group-item
+          a(href='#!/dbBackups') DB Backups
+        li.list-group-item
+          a(href='#!/settingsBackup') Settings Backup
+    div.col-md-10
+      div(ng-view)
+
+block scripts
+  script(src='/js/libs/utilities.js')
+  script(src='/client_admin/routesAdmin.js')
+  script(src='/client_admin/adminClient.js')
+  script(src='/client_admin/controllers/usersCtrl.js')
+  script(src='/client_admin/controllers/addAccountCtrl.js')
+  script(src='/client_admin/controllers/rolesCtrl.js')
+  script(src='/client_admin/controllers/allPollsCtrl.js')
+  script(src='/client_admin/controllers/logsCtrl.js')
+  script(src='/client_admin/controllers/backupsCtrl.js')
+  script(src='/client_admin/controllers/settingsBackup.js')
+  script(src='/client_admin/controllers/indexCtrl.js')

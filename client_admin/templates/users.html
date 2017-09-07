@@ -1,0 +1,56 @@
+<h1>Users</h1>
+
+<div ng-if="users.length === 0" class="alert alert-info">
+  <p>No users at the moment...</p>
+</div>
+<table ng-else class="table table-hover">
+  <input ng-model="searchQuery" class="form-control" type="text">
+  <thead>
+    <tr>
+      <td>Num</td>
+      <td>Username</td>
+      <td>Email</td>
+      <td>Register Date</td>
+      <td>Is activated</td>
+      <td>Role</td>
+      <td>Update</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | filter:searchQuery">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.register_date | date }}</td>
+      <td>{{ user.is_activated ? 'Yes' : 'No' }}</td>
+      <td ng-if="user.canBeModified">
+        <select ng-model="user.Role.id_role">
+          <option value="1">user</option>
+          <option value="2">admin</option>
+        </select>
+      </td>
+      <td ng-if="!user.canBeModified">
+        {{ user.Role.role }}
+      </td>
+      <td>
+        <button
+          ng-disabled="!user.canBeModified"
+          ng-click="confirmUpdateUser(user)"
+          class="btn btn-success"
+        >
+          Update
+        </button>
+      </td>
+      <td>
+        <button
+          ng-disabled="!user.canBeModified"
+          ng-click="confirmDeleteUser(user.id_user,$index)"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

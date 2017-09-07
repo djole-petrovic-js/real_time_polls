@@ -1,0 +1,27 @@
+<h1>Add new Poll</h1>
+
+<form ng-submit="addPoll()">
+  <div class="form-group">
+    <input ng-model="pollName" class="form-control" type="text" placeholder="Name of the poll">
+  </div>
+  <div class="form-group">
+    <p>Please select the number of choices for this poll</p>
+    <p>Minimum 2 choices, max 6 choices...</p>
+    <select ng-model="numberOfChoices" ng-change="renderChoices()" ng-init="numberOfChoices = 2">
+      <option value="2" selected="selected">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+  </div>
+  <div class="form-group" ng-bind-html="choicesHTML">
+  </div>
+  <div class="form-group">
+    <input type="checkbox" ng-model="showUsername">
+    Show your username when displaying this poll
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" value="Add Poll!">
+  </div>
+</form>

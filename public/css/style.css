@@ -1,0 +1,24 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.chatbox {
+  border:1px solid black;
+  border-radius: 6px;
+  width:98%;
+  height: 200px;
+  overflow: scroll;
+}
+
+.chatbox ul {
+  width: 50%;
+}
+
+/*#canvasChart {
+  max-height: 300px;
+}*/

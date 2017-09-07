@@ -1,0 +1,35 @@
+<h1>Logs</h1>
+
+<div ng-if="logContent !== ''">
+  <textarea style="min-height: 400px;" class="form-control">
+    {{ logContent }}
+  </textarea>
+  <button ng-click="hideContentArea()" class="btn btn-primary">Hide</button>
+</div>
+
+
+<div ng-if="logs !== null && logs.length === 0" class="alert alert-info">
+  <p>No logs at the moment...</p>
+</div>
+<table ng-if="logs !== null && logs.length > 0" class="table table-hover">
+  <thead>
+    <tr>
+      <td>Num</td>
+      <td>Log</td>
+      <td>Show</td>
+      <td>Clear</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="log in logs">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ log }}</td>  
+      <td>
+        <button ng-click="getLogFile(log)" class="btn btn-primary">Show</button>
+      </td>
+      <td>
+        <button ng-click="clearLog(log)" class="btn btn-danger">Clear</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

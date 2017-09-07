@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  h1 Register
+
+  if errors.length > 0
+    for error in errors
+      div.alert.alert-danger
+        p= error
+
+  if success.length > 0
+    for msg in success
+      div.alert.alert-success
+        p= msg
+
+  div#errors(class='list-group')
+
+  form(id='form',method='POST',action='/register')
+    input(type='hidden',name='_csrf',value='#{ csrfToken }')
+
+    input.form-control(
+      id='username',
+      type='text',
+      name='username',
+      placeholder='Username...',
+      value='#{ userData.username ? userData.username : "" }'
+    )
+
+    input.btn.btn-primary(
+      id='btnCheckUsername',
+      type='button',
+      value='Check username availability'
+    )
+
+    p#pUsername
+
+    input.form-control(
+      id='password',
+      type='password',
+      name='password',
+      placeholder='Password',
+      value='#{ userData.password ? userData.password : "" }'
+    )
+
+    input.form-control(
+      id='confirmPassword',
+      type='password',
+      name='confirmPassword',
+      placeholder='Confirm password...',
+      value='#{ userData.confirmPassword ? userData.confirmPassword : "" }'
+    )
+
+    input.form-control(
+      id='email',
+      type='text',
+      name='email',
+      placeholder='Email...'
+      value='#{ userData.email ? userData.email : "" }'
+    )
+
+    input.btn.btn-primary(
+      id='btnCheckEmail',
+      type='button',
+      value='Check Email availability'
+    )
+
+    p#pEmail
+
+    button.btn.btn-primary(type='submit') Register
+
+block scripts
+  script(src='/js/libs/types.js')
+  script(src='/js/libs/form.js')
+  script(src='/js/register/registerClient.js')

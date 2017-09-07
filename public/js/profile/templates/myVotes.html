@@ -1,0 +1,16 @@
+<h1>My votes</h1>
+
+<div ng-if="myVotes === null" class="alert alert-info">
+  <p>You didnt vote on any poll!</p>
+</div>
+<ul ng-if="myVotes && myVotes.length !== 0" class="list-group">
+  <input placeholder="Search your votes..." type="text" class="form-control" ng-model="searchQuery">
+  <br>
+  <li ng-repeat="vote in myVotes | filter:searchQuery" class="list-group-item">
+    <p>
+      <a href="/polls/monitor/{{ vote.Choice.Poll.id_poll }}">Poll : {{ vote.Choice.Poll.poll }}</a>
+    </p>
+    <p>Voted for : {{ vote.Choice.choice }}</p>
+    <p>Voted on {{ vote.vote_date | date }}</p>
+  </li>
+</ul>

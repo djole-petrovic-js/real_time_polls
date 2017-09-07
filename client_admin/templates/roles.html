@@ -1,0 +1,23 @@
+<h1>Roles</h1>
+
+<div ng-if="roles.length == 0" class="alert alert-info">
+  <p>No roles at the moment...</p>
+</div>
+<table ng-else class="table table-hover">
+  <thead>
+    <tr>
+      <td>Num</td>
+      <td>Role</td>
+      <td>Update</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="role in roles">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ role.role }}</td>
+      <td>
+        <button class="btn btn-success">Update</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

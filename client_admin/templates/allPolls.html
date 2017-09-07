@@ -1,0 +1,41 @@
+<h1>All polls...</h1>
+
+<div ng-if="allPolls && allPolls.length === 0" class="alert alert-info">
+  <p>No polls at the moment...</p>
+</div>
+<table ng-if="allPolls && allPolls.length !== 0" class="table table-hover">
+  <thead>
+    <tr>
+      <td>Num</td>
+      <td>Poll</td>
+      <td>Votes</td>
+      <td>Created At</td>
+      <td>Closed At</td>
+      <td>Created By</td>
+      <td>Delete Poll</td>
+      <td>Enable / Disable</td>
+    </tr>
+  </thead>
+  <tbody>
+    <input ng-model="searchQuery" class="form-control" type="text">
+    <tr ng-repeat="poll in allPolls | filter:searchQuery">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ poll.poll }}</td>
+      <td>{{ poll.votes }}</td>
+      <td>{{ poll.created_date | date }}</td>
+      <td ng-if="!poll.is_active">
+        {{ poll.closed_at | date }}
+      </td>
+      <td ng-if="poll.is_active">
+        Still active.
+      </td>
+      <td>{{ poll.User.username }}</td>
+      <td>
+        <button ng-click="deletePoll(poll.id_poll)" class="btn btn-danger">Delete</button>
+      </td>
+      <td>
+        <button ng-click="enableDisablePoll(poll.id_poll,$index)" class="btn btn-primary">Toggle</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

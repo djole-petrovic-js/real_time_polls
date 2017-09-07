@@ -1,0 +1,70 @@
+extends layout
+
+block head
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js')
+
+block content
+  if !poll
+    h1 nema nista
+  else
+    br
+    div.row
+      div.col-md-12
+        div.alert.alert-info(id='chartBackground')
+          select#chartType
+            option(value='bar') Bar
+            option(value='line') Line
+            option(value='pie') Pie
+            option(value='doughnut') Doughnut
+            option(value='radar') Radar
+            option(value='bubble') Bubble
+          input#colorPicker(type='color')
+          canvas#canvasChart
+
+    div.row(id='poll',data-id='#{ poll.id_poll }')
+      div.col-md-6
+        h1 #{ poll.poll } (#{ sumOfVotes })
+
+        if poll.show_username
+          p2 Created by #{ poll.User.username }
+
+        if user && !alreadyVoted && poll.is_active
+          form#voteForm(action='/api/public/vote',method='POST')
+            for choice,index in poll.Choices
+              div.form-group
+                input(
+                  type='radio',
+                  name='choice',
+                  value='#{ choice.id_choice }'
+                )
+                label #{ choice.choice }  
+                  span  (#{ choice.number_of_votes })
+                  span  (#{ choice.percentage })
+                br
+            input.btn.btn-primary(type='submit', value='Vote!')
+        else
+          if !poll.is_active
+            p This poll is not longer active...
+          for choice,index in poll.Choices
+            if choice.id_choice === idVotedChoice 
+              p.alert.alert-info #{ choice.choice } (#{ choice.number_of_votes }) (#{ choice.percentage })
+            else
+              p #{ choice.choice }
+                span  (#{ choice.number_of_votes })
+                span  (#{ choice.percentage })
+      div.col-md-6
+        h1 Chat
+        div.chatbox
+          ul.list-group(id='msgList')
+        if user
+          div.form-group
+            input.form-control(type='text', placeholder='comment',id='msgBox')
+            button.btn.btn-primary(id='btnSendMsg') Send!
+        else
+          p You have to be logged in to send message...
+
+block scripts
+  script(src='/js/libs/cookies.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='/js/libs/utilities.js')
+  script(src='/js/monitor/monitor.js')

@@ -1,0 +1,74 @@
+<h1>Backups</h1>
+
+<div class="form-group">
+  <h2>Upload Backup</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input id="upload" type="file" multiple="multiple" name="upload" class="form-control">
+    <br>
+    <button ng-click="uploadBackup()" class="btn btn-primary">Upload</button>
+  </form>
+</div>
+
+<div ng-if="backups && backups.length === 0" class="alert alert-info">
+  <p>No backups at the moment</p>
+</div>
+<table ng-if="backups && backups.length > 0" class="table table-hover">
+  <form>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Enter password to download or apply backup..."
+        ng-model="password"
+      >
+    </div>
+  </form>
+  <thead>
+    <tr>
+      <td>Num</td>
+      <td>Backup</td>
+      <td>Create date</td>
+      <td>Apply</td>
+      <td>Download</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="backup in backups">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ backup.dir }}</td>
+      <td>{{ backup.birthtime | date:"d-M-y : s:m:H" }}</td>
+      <td>
+        <button 
+          ng-click="confirmApplyBackup(backup.dir)"
+          ng-disabled="operationInProgress" 
+          class="btn btn-danger"
+        >
+          Apply Backup
+        </button>
+      </td>
+      <td>
+        <form id="downloadForm{{ backup.dir }}">
+          <input type="hidden" name="password" ng-value="password">
+          <input type="hidden" name="backupName" value="{{ backup.dir }}">
+        </form>
+        <button 
+          ng-disabled="operationInProgress"
+          ng-click="downloadBackup(backup.dir)" 
+          class="btn btn-primary"
+        >
+          Download
+        </button>
+      </td>
+      <td>
+        <button 
+          ng-disabled="operationInProgress"
+          ng-click="deleteBackup(backup.dir,$index)"
+          class="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

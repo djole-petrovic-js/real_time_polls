@@ -1,0 +1,42 @@
+<h1>Admin Panel</h1>
+
+<div>
+  <h2>Main site settings</h2>
+  <div class="form-group">
+    <input ng-model="password" type="password" class="form-control" placeholder="Password...">
+  </div>
+  <div ng-if="mainSettings && mainSettings.length === 0" class="alert alert-info">
+    <p>No settings at the moment...</p>
+  </div>
+  <table ng-if="mainSettings && mainSettings.length > 0" class="table table-hover">
+    <thead>
+      <tr>
+        <td>Num</td>
+        <td>Setting</td>
+        <td>Value</td>
+        <td>Options</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="setting in mainSettings">
+        <td>{{ $index + 1 }}</td>
+        <td>{{ setting.settingsName }}</td>
+        <td ng-if="canChangeSettings !== null && canChangeSettings">
+          <input class="form-control" type="text" ng-model="setting.settingsValue">
+        </td>
+        <td ng-if="canChangeSettings !== null && !canChangeSettings">
+          {{ setting.settingsValue }}
+        </td>
+        <td>
+          <button 
+            ng-disabled="operationInProgress || !canChangeSettings"
+            ng-click="changeSetting(setting.settingsName,setting.settingsValue)" 
+            class="btn btn-danger"
+          >
+            Change
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

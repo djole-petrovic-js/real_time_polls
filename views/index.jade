@@ -1,0 +1,19 @@
+extends layout
+
+block head
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js')
+
+block content
+  div.row
+    div.col-md-12
+      div.alert.alert-info
+        div.row(id='newPolls')
+  div.row
+    div.col-md-12
+      div.alert.alert-success
+        div.row(id='popularPolls')
+
+block scripts
+  script(src='/socket.io/socket.io.js')
+  script(src='/js/libs/utilities.js')
+  script(src='/js/index/indexClient.js')

@@ -1,0 +1,32 @@
+extends layout
+
+block head
+  script(src='/js/angular/angular.min.js')
+  script(src='/js/angular/angular-route.min.js')
+  script(src='/js/angular/angular-sanitize.min.js')
+
+block content
+  h1 Profile
+  
+  div.row
+    div.col-md-4
+      ul.list-group
+        li.list-group-item
+          a(ng-href='#!/') Profile
+        li.list-group-item
+          a(ng-href='#!/myPolls') My Polls
+        li.list-group-item
+          a(ng-href='#!/myVotes') My Votes
+        li.list-group-item
+          a(ng-href='#!/addPoll') Add New Poll
+    div.col-md-8
+      div(ng-view)
+
+block scripts
+  script(src='/socket.io/socket.io.js')
+  script(src='/js/profile/routes.js')
+  script(src='/js/profile/profileClient.js')
+  script(src='/js/profile/controllers/indexCtrl.js')
+  script(src='/js/profile/controllers/myVotesCtrl.js')
+  script(src='/js/profile/controllers/myPollsCtrl.js')
+  script(src='/js/profile/controllers/addPollCtrl.js')
