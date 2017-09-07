@@ -87,7 +87,7 @@ router.post('/enableDisablePoll',async(req,res,next) => {
 
     const query = poll.is_active
       ? { is_active:false,closed_at:sequelize.literal('CURRENT_TIMESTAMP') }
-      : {  is_active:true,closed_at:null };
+      : { is_active:true,closed_at:null };
 
     await Poll.update(query,{
       where:{

@@ -1,0 +1,64 @@
+
+      **********************
+      Sun, 30 Jul 2017 15:34:58 GMT
+      AssertionError: Missing where attribute in the options parameter
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 17:22:06 GMT
+      SequelizeDatabaseError: Unknown column 'Poll.created_at' in 'order clause'
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 17:31:52 GMT
+      SequelizeDatabaseError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ILIKE '%undefined%' ORDER BY `Poll`.`created_date` DESC LIMIT 0, 2' at line 1
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 17:33:55 GMT
+      SequelizeDatabaseError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ILIKE '%qwe%' ORDER BY `Poll`.`created_date` DESC LIMIT 0, 2' at line 1
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 18:41:26 GMT
+      SequelizeDatabaseError: Undeclared variable: NaN
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 20:24:04 GMT
+      TypeError: Cannot read property 'poll' of null
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 20:24:14 GMT
+      TypeError: Cannot read property 'poll' of null
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 20:26:05 GMT
+      TypeError: Cannot read property 'poll' of null
+      ----------------------
+      
+
+    
+      **********************
+      Mon, 31 Jul 2017 20:26:38 GMT
+      TypeError: Cannot read property 'poll' of null
+      ----------------------
+      
+
+    

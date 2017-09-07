@@ -1,0 +1,78 @@
+
+      **********************
+      Sun, 23 Jul 2017 21:04:03 GMT
+      ReferenceError: kvek is not defined
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:07:31 GMT
+      SequelizeDatabaseError: Unknown column 'Poll.DESC' in 'order clause'
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:07:33 GMT
+      SequelizeDatabaseError: Unknown column 'Poll.DESC' in 'order clause'
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:24:24 GMT
+      ReferenceError: latestPolls is not defined
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:25:20 GMT
+      ReferenceError: latestPolls is not defined
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:35:40 GMT
+      SequelizeDatabaseError: FUNCTION Choices.sum does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:37:01 GMT
+      TypeError: Choice.col is not a function
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:37:22 GMT
+      TypeError: Choice.fn is not a function
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:39:35 GMT
+      SequelizeDatabaseError: Unknown column 'number_of_votes' in 'order clause'
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:50:49 GMT
+      TypeError: sequelize.query is not a function
+      ----------------------
+      
+
+    
+      **********************
+      Sun, 23 Jul 2017 21:52:29 GMT
+      SequelizeDatabaseError: Table 'real_time_polls.POLL' doesn't exist
+      ----------------------
+      
+
+    
