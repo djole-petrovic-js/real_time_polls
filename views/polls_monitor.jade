@@ -23,6 +23,15 @@ block content
 
     div.row(id='poll',data-id='#{ poll.id_poll }')
       div.col-md-6
+        button.btn.btn-primary#btnShowForm Report this poll
+
+        form#reportForm(method='POST',action='')
+          label Specify the reason for reporting this poll
+          br
+          textarea#reportTextArea
+          br
+          button.btn.btn-primary#btnReport Report
+
         h1 #{ poll.poll } (#{ sumOfVotes })
 
         if poll.show_username
@@ -67,4 +76,5 @@ block scripts
   script(src='/js/libs/cookies.js')
   script(src='/socket.io/socket.io.js')
   script(src='/js/libs/utilities.js')
+  script(src='/js/monitor/report_client.js')
   script(src='/js/monitor/monitor.js')

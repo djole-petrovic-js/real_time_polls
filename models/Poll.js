@@ -26,6 +26,10 @@ const initPollModel = (sequelize,DataTypes) => {
       type:DataTypes.BOOLEAN,
       defaultValue:true
     },
+    disabled_by_reports:{
+      type:DataTypes.BOOLEAN,
+      defaultValue:false
+    },
     show_username:{
       type:DataTypes.BOOLEAN,
       defaultValue:true
@@ -38,6 +42,7 @@ const initPollModel = (sequelize,DataTypes) => {
 
   Poll.associate = (models) => {
     Poll.hasMany(models.Choice);
+    Poll.hasMany(models.Report);
     Poll.belongsTo(models.User);
 
     Poll.belongsToMany(models.User,{

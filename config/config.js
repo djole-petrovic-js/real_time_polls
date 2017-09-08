@@ -50,6 +50,10 @@ const minUsernameChangePeriod = 100;
 //period in days
 const minPasswordChangePeriod = 100;
 
+const maxReportsPerUserPerMonth = 20;
+
+const reportsForBlockingPoll = 20;
+
 const usernameRegex = /^[a-zA-Z0-9_\-]{5,20}$/g;
 
 const passwordRegex = /^[a-zA-Z0-9_\-]{5,20}$/g;
@@ -84,6 +88,8 @@ Object.assign(config,{
   tokenExpiration,
   minUsernameChangePeriod,
   minPasswordChangePeriod,
+  maxReportsPerUserPerMonth,
+  reportsForBlockingPoll,
   usernameRegex,
   passwordRegex,
   SQLBackups,

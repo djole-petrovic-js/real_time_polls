@@ -3,16 +3,18 @@ const
   path       = require('path'),
   fs         = require('fs');
 
-const {
-  DB_NAME,
-  DB_USERNAME,
-  DB_PASSWORD
-} = require('../config/db');
+const
+	generateLog = require('../utils/generateLog');
 
-const connection = new sequelize(DB_NAME,DB_USERNAME,DB_PASSWORD,{
-  dialect:'mysql',
-  logging:false
-});
+const connection = new sequelize(
+	process.env.DB_NAME,
+	process.env.DB_USERNAME,
+	process.env.DB_PASSWORD,
+  {
+	  dialect:'mysql',
+	  logging:false
+  }
+);
 
 const db = {};
 
@@ -61,8 +63,12 @@ connection.sync()
 
   //   return user;
   // })
-  .then(user => {
-    console.log('sve  u redu');
+  .then(async() => {
+  	//await generateLog('database','Successfully connected to database...');
+  })
+  .catch(async(err) => {
+  	await generateLog('fatal_errors',err);
+  	process.exit();
   });
 
 module.exports = {

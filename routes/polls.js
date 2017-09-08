@@ -56,7 +56,7 @@ const pollsRouter = (io) => {
     }
   });
 
-  router.get(/^\/monitor\/([1-9][0-9]*)\/([^<>]*)$/,async(req,res,next) => {
+  router.get(/^\/monitor\/([1-9][0-9]*)(\/[^<>]*)?$/,async(req,res,next) => {
     try {
       const pollID = req.params['0'];
 
@@ -158,7 +158,6 @@ const pollsRouter = (io) => {
       } catch(e) {
         generateLog('sockets',e)
       }
-
     });
 
     socket.on('pollAdded',async(data) => {

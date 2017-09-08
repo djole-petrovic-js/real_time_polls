@@ -106,6 +106,8 @@ router.post('/enableDisablePoll',async(req,res,next) => {
 
 
 
+
+
 router.post('/deletePoll',async(req,res,next) => {
   try {
     const { id_poll } = req.body;
@@ -426,7 +428,7 @@ router.post('/clearLog',async(req,res,next) => {
   }
 
   try {
-    await fs.writeFile(logPath,`Cleared on : ${ new Date().toUTCString() }`,'utf-8');
+    await fs.writeFileAsync(logPath,`Cleared on : ${ new Date().toUTCString() }`,'utf-8');
 
     res.json({
       success:true
@@ -439,13 +441,54 @@ router.post('/clearLog',async(req,res,next) => {
 
 
 
+router.post('/clearAllLogs',async(req,res,next) => {
+	try {
+		const
+			cleared = [],
+			failed  = [],
+			logs 		= await fs.readdirAsync(logsDirectory);
+
+		if ( logs.length === 0 ) {
+			return res.json({
+				success:true,
+				cleared,
+				failed
+			});
+		}
+
+		for ( const log of logs ) {
+			try {
+				await fs.writeFileAsync(
+					path.join(logsDirectory,log),
+					`Cleared on : ${ new Date().toUTCString() }`,
+					'utf-8'
+				);
+
+				cleared.push(log);
+			} catch(e) {
+				failed.push(log);
+			}
+		}
+
+		res.json({
+			success:true,
+			cleared,
+			failed
+		});		
+
+	} catch(e) {
+		return next(generateError('Could not clear logs...'));
+	}
+});
+
+
+
 router.get('/getBackups',async(req,res,next) => {
   try {
     const backups = await getSortedBackups(backupsDirectory);
 
     res.json(backups);
   } catch(e) {
-    console.log(e);
     return next(generateError('Could not get backups...'));
   }
 });
@@ -796,6 +839,7 @@ router.post('/changeSetting',superUsersOnly,passwordProtected,async(req,res,next
         });
       }
 
+      //get only new super uspers eg : old ['a','b'] new ['a','b','c'], get only c
       for ( const superUserCandidate of newSuperUsers.slice(superUsers.length) ) {
         const candidate = await User.findOne({
           where:{

@@ -6,16 +6,16 @@ const
   favicon      = require('serve-favicon'),
   logger       = require('morgan'),
   cookieParser = require('cookie-parser'),
-  bodyParser    = require('body-parser'),
+  bodyParser   = require('body-parser'),
   flash        = require('connect-flash'),
-  passport      = require('passport'),
+  passport     = require('passport'),
   session      = require('express-session'),
   sessionStore = require('connect-session-sequelize')(session.Store),
   ioSession    = require('express-socket.io-session'),
   helmet       = require('helmet'),
   io           = require('socket.io')(),
   path         = require('path'),
-  app           = express();
+  app          = express();
   
 app.io = io;
 
@@ -31,11 +31,12 @@ const
 
 const 
   { serializeUser,deserializeUser } = require('./libs/passport/serialize'),
-  { connection }                     = require('./models/models'),
+  { connection }                    = require('./models/models'),
   generateError                     = require('./utils/generateError'),
   allowAdminAccessOnly              = require('./utils/allowAdminAccessOnly'),
   backups                           = require('./cron_jobs/backup/backups'),
   cleanExpiredAccounts              = require('./cron_jobs/cleanExpiredAccounts/cleanExpiredAccounts'),
+  resetNumberOfReports              = require('./cron_jobs/resetNumberOfReports/resetNumberOfReports'),
   checkIfAjaxRequest                = require('./utils/checkIfAjaxRequest'),
   mainSettings                      = require('./config/config'),
   watchSettingsFile                 = require('./utils/watchSettingsFile'),
@@ -74,7 +75,7 @@ passport.deserializeUser(deserializeUser);
 app.use('/login',login);
 
 app.use((req,res,next) => {
-  if ( mainSettings.SITE_MAINTENANCE != 1 ) return next();
+  if ( mainSettings.SITE_MAINTENANCE !== 1 ) return next();
 
   if ( req.isAuthenticated() && req.user.role.toUpperCase() === 'ADMIN' ) {
     return next();

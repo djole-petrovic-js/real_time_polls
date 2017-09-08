@@ -31,6 +31,10 @@ const initUserModel = (sequelize,DataTypes) => {
       type:DataTypes.DATE,
       defaultValue:DataTypes.NOW
     },
+    number_of_reports:{
+      type:DataTypes.INTEGER,
+      defaultValue:0
+    },
     is_activated:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
@@ -72,6 +76,7 @@ const initUserModel = (sequelize,DataTypes) => {
     });
 
     User.hasMany(models.Poll);
+    User.hasMany(models.Report);
     User.hasOne(models.Token);
   }
 

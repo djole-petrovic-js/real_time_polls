@@ -14,7 +14,7 @@ const deserializeUser = async(id_user,done) => {
       where:{
         id_user
       },
-      attributes:['id_user','username','email','register_date'],
+      attributes:['id_user','username','email','register_date','number_of_reports'],
       include:[{
         model:Role
       }]

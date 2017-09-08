@@ -13,6 +13,21 @@
       console.log(err);
     });
 
+    $scope.confirmClearAllLogs = function() {
+      $scope.clearAllLogs();
+    }
+
+    $scope.clearAllLogs = function() {
+      $http
+        .post('/api/admin/clearAllLogs')
+        .then(function(response){
+          console.log(response);
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+    }
+
     $scope.hideContentArea = function() {
       $scope.logContent = '';
     }

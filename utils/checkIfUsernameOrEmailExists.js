@@ -3,11 +3,6 @@ const
 
 const checkIfUsernameOrEmailExists = async({ username,email }) => {
   try {
-    const info = {
-      usernameExists:false,
-      emailExists:false
-    };
-
     const checkUsername = await User.findOne({
       raw:true,
       where:{ username }
@@ -18,16 +13,10 @@ const checkIfUsernameOrEmailExists = async({ username,email }) => {
       where:{ email }
     });
 
-    if ( checkUsername ) {
-      info.usernameExists = true;
-    }
-
-    if ( checkEmail ) {
-      info.emailExists = true;
-    }
-
-    return info;
-
+    return {
+      usernameExists:!!checkUsername,
+      emailExists:!!checkUsername
+    };
   } catch(e) {
     throw e;
   }

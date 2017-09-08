@@ -8,7 +8,7 @@
     <p>Number of votes : {{ poll.votes }}</p>
     <p>Poll active : {{ poll.is_active ? 'Yes' : 'No' }}</p>
     <p>Created at {{ poll.created_date | date }}</p>
-    <a href="/polls/monitor/{{ poll.id_poll }}" target="_blank" class="btn btn-primary">Monitor</a>
+    <a href="/polls/monitor/{{ poll.id_poll }}/{{ poll.poll }}" target="_blank" class="btn btn-primary">Monitor</a>
     <button ng-click="poll.showOptions = !poll.showOptions" class="btn btn-primary">
       {{ !poll.showOptions ? 'Show choices' : 'Hide choices' }}
     </button>
