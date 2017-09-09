@@ -35,6 +35,10 @@
         templateUrl:path + 'settingsBackup.html',
         controller:'settingsBackupCtrl'
       })
+      .when('/reports',{
+        templateUrl:path + 'reports.html',
+        controller:'reportsCtrl'
+      })
       .when('/',{
         templateUrl:path + 'index.html',
         controller:'indexCtrl'

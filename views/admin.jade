@@ -29,6 +29,8 @@ block content
           a(href='#!/dbBackups') DB Backups
         li.list-group-item
           a(href='#!/settingsBackup') Settings Backup
+        li.list-group-item
+          a(href='#!/reports') Reports
     div.col-md-10
       div(ng-view)
 
@@ -36,6 +38,7 @@ block scripts
   script(src='/js/libs/utilities.js')
   script(src='/client_admin/routesAdmin.js')
   script(src='/client_admin/adminClient.js')
+  //script(src='/client_admin/build/build.min.js')
   script(src='/client_admin/controllers/usersCtrl.js')
   script(src='/client_admin/controllers/addAccountCtrl.js')
   script(src='/client_admin/controllers/rolesCtrl.js')
@@ -43,4 +46,5 @@ block scripts
   script(src='/client_admin/controllers/logsCtrl.js')
   script(src='/client_admin/controllers/backupsCtrl.js')
   script(src='/client_admin/controllers/settingsBackup.js')
+  script(src='/client_admin/controllers/reportsCtrl.js')
   script(src='/client_admin/controllers/indexCtrl.js')

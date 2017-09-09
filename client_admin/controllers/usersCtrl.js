@@ -9,9 +9,9 @@
     $http({
       method:'GET',
       url:'/api/admin/getUsers'
-    }).then(function(response){
-      var users = Utilities.map(response.data,function(x){
-        var user = x.user;
+    }).then(response => {
+      const users = response.data.map(x => {
+        const user = x.user;
 
         user.canBeModified = x.canBeModified;
         user.Role.id_role = String(user.Role.id_role);
@@ -20,15 +20,15 @@
       });
 
       $scope.users = users;
-    }).catch(function(err){
+    }).catch(err => {
       console.log(err);
     });
 
-    $scope.confirmUpdateUser = function(user) {
+    $scope.confirmUpdateUser = user => {
       $scope.updateUser(user);
     }
 
-    $scope.updateUser = function(user) {
+    $scope.updateUser = user => {
       $http({
         method:'POST',
         url:'/api/admin/updateUser',
@@ -36,18 +36,18 @@
           id_user:user.id_user,
           RoleIdRole:user.Role.id_role
         }
-      }).then(function(response){
+      }).then(response => {
         console.log(response.data);
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }
 
-    $scope.confirmDeleteUser = function(userID,index) {
+    $scope.confirmDeleteUser = (userID,index) => {
       $scope.deleteUser(userID,index);
     }
 
-    $scope.deleteUser = function(userID,index) {
+    $scope.deleteUser = (userID,index) => {
       $http({
         method:'POST',
         url:'/api/admin/deleteUser',

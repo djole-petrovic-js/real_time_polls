@@ -87,6 +87,7 @@ class Settings {
     }
   }
 
+  // never used...
   async getBackups() {
     try {
       return await fs.readdirAsync(this.backupsPath);

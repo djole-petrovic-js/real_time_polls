@@ -22,7 +22,7 @@
     config.saveConfig = function() {
       var
         cookieObj = {},
-        keys       = Utilities.keys(this),
+        keys      = Utilities.keys(this),
         len       = keys.length,
         i         = 0;
 
@@ -43,7 +43,7 @@
       output = {},
       sum    = 0,
       i      = 0,
-      len     = poll.Choices.length;
+      len    = poll.Choices.length;
 
 
     for ( ; i < len ; i++ ) {
@@ -52,18 +52,17 @@
     }
 
     output.sum = sum;
-
     choicesData = output;
   }
 
   var
     $chartBackground = $('#chartBackground'),
-    $colorPicker      = $('#colorPicker'),
-     $msgBox          = $('#msgBox'),
-     $btnSendMsg      = $('#btnSendMsg'),
-     $msgList         = $('#msgList'),
-     $chartType       = $('#chartType'),
-     socket             = io();
+    $colorPicker     = $('#colorPicker'),
+    $msgBox          = $('#msgBox'),
+    $btnSendMsg      = $('#btnSendMsg'),
+    $msgList         = $('#msgList'),
+    $chartType       = $('#chartType'),
+    socket           = io();
 
   var chartInfo = {
     ctx:null,

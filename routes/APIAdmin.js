@@ -44,6 +44,9 @@ const {
 
 router.use(allowAdminAccessOnly);
 
+
+
+
 router.get('/getRoles',async(req,res,next) => {
   try {
     const roles = await Role.findAll();
@@ -130,6 +133,16 @@ router.post('/deletePoll',async(req,res,next) => {
   } catch(e) {
     return next(generateError('Could not delete this poll...'));
   }
+});
+
+
+
+router.get('/getAllReports',async(req,res,next) => {
+	try {
+		res.send('kreki');
+	} catch(e) {
+
+	}
 });
 
 
@@ -362,7 +375,6 @@ router.post('/deleteUser',async(req,res,next) => {
     });
 
   } catch(e) {
-    console.log(e);
     return next(generateError('Could not delete user, please try again...'));
   }
 });
@@ -411,7 +423,7 @@ router.post('/getLogFile',async(req,res,next) => {
 
 
 
-router.post('/clearLog',async(req,res,next) => {
+router.post('/clearLog',superUsersOnly,async(req,res,next) => {
   const 
     { logFile } = req.body,
     logPath     = path.join(logsDirectory,logFile);
@@ -441,7 +453,7 @@ router.post('/clearLog',async(req,res,next) => {
 
 
 
-router.post('/clearAllLogs',async(req,res,next) => {
+router.post('/clearAllLogs',superUsersOnly,async(req,res,next) => {
 	try {
 		const
 			cleared = [],

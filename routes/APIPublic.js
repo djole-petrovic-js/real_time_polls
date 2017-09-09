@@ -236,9 +236,7 @@ router.post('/report',async(req,res,next) => {
 		const { reason,pollID } = req.body;
 
 		if (
-			!reason ||
-			!pollID ||
-			!Types.isString(reason)  ||
+			!reason || !pollID || !Types.isString(reason) ||
 			!(Types.isString(reason) || Types.isNumber(reason))
 		) {
 			generateLog('polls',`

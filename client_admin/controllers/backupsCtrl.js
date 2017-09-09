@@ -8,13 +8,13 @@
     $scope.password = '';
     $scope.operationInProgress = false;
 
-    $http.get('/api/admin/getBackups').then(function(response){
+    $http.get('/api/admin/getBackups').then(response => {
       $scope.backups = response.data
-    }).catch(function(err){
+    }).catch(err => {
       console.log(err);
     });
 
-    $scope.deleteBackup = function(backupName,index) {
+    $scope.deleteBackup = (backupName,index) => {
       if ( !$scope.password ) {
         return alert('Please enter password!');
       }
@@ -26,23 +26,23 @@
           backupName:backupName,
           password:$scope.password
         }
-      }).then(function(response){
+      }).then((response) => {
         if ( response.data.success ) {
           $scope.backups.splice(index,1);
           $scope.password = '';
         }
-      }).catch(function(err){
+      }).catch((err) => {
         console.log(err);
       });
     }
 
-    $scope.uploadBackup = function(){
+    $scope.uploadBackup = () => {
       if ( !$scope.password ) {
         return alert('Please enter password!');
       }
 
-      var 
-        formData     = new FormData(),
+      const 
+        formData    = new FormData(),
         uploadInput = doc.getElementById('upload');     
 
       formData.append('file',uploadInput.files[0]);
@@ -55,15 +55,15 @@
           "Content-Type":undefined
         },
         data:formData
-      }).then(function(response){
+      }).then(response => {
         console.log(response);
         $scope.password = '';
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }
 
-    $scope.downloadBackup = function(backupName) {
+    $scope.downloadBackup = backupName => {
       if ( !$scope.password ) {
         return alert('Please enter password!');
       }
@@ -77,9 +77,9 @@
           backupName:backupName,
           password:$scope.password
         }
-      }).then(function(response){
+      }).then(response => {
         if ( response.data.success ) {
-          var $form = $('#downloadBackup' + backupName);
+          const $form = $('#downloadBackup' + backupName);
 
           $('#downloadForm' + backupName).attr('action','/api/admin/downloadBackup');
           $('#downloadForm' + backupName).attr('method','POST');
@@ -95,14 +95,13 @@
             console.log(response.data.message)
           }
         }
-
-      }).catch(function(err){
+      }).catch(err => {
         $scope.operationInProgress = false;
         console.log(err);
       });
     }
 
-    $scope.confirmApplyBackup = function(backupName) {
+    $scope.confirmApplyBackup = backupName => {
       if ( !$scope.password ) {
         return alert('Please enter password!');
       } 
@@ -110,7 +109,7 @@
       $scope.applyBackup(backupName);
     }
 
-    $scope.applyBackup = function(backupName) {
+    $scope.applyBackup = backupName => {
       $scope.operationInProgress = true;
 
       $http({
@@ -120,10 +119,10 @@
           backupName:backupName,
           password:$scope.password
         }
-      }).then(function(response){
+      }).then(response =>{
         $scope.operationInProgress = false;
         $scope.password = '';
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
         $scope.operationInProgress = false;
       });

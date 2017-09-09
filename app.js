@@ -1,5 +1,4 @@
-const
-  configEnv = require('./configEnv')();
+require('./configEnv')();
 
 const
   express      = require('express'),
