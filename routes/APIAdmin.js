@@ -28,7 +28,8 @@ const {
   connection:Sequelize,
   db:{
     User,Role,
-    Poll,BannedEmail
+    Poll,BannedEmail,
+    Report
   }
 } = require('../models/models');
 
@@ -138,11 +139,20 @@ router.post('/deletePoll',async(req,res,next) => {
 
 
 router.get('/getAllReports',async(req,res,next) => {
-	try {
-		res.send('kreki');
-	} catch(e) {
+  try {
+    const reports = await Report.findAll({
+      order:[['report_date','DESC']],
+      include:[{
+        model:Poll
+      },{
+        model:User
+      }]
+    });
 
-	}
+    res.json(reports);
+  } catch(e) {
+    generateLog('polls','Could not get reports : ' + e);
+  }
 });
 
 
@@ -454,43 +464,43 @@ router.post('/clearLog',superUsersOnly,async(req,res,next) => {
 
 
 router.post('/clearAllLogs',superUsersOnly,async(req,res,next) => {
-	try {
-		const
-			cleared = [],
-			failed  = [],
-			logs 		= await fs.readdirAsync(logsDirectory);
+  try {
+    const
+      cleared = [],
+      failed  = [],
+      logs     = await fs.readdirAsync(logsDirectory);
 
-		if ( logs.length === 0 ) {
-			return res.json({
-				success:true,
-				cleared,
-				failed
-			});
-		}
+    if ( logs.length === 0 ) {
+      return res.json({
+        success:true,
+        cleared,
+        failed
+      });
+    }
 
-		for ( const log of logs ) {
-			try {
-				await fs.writeFileAsync(
-					path.join(logsDirectory,log),
-					`Cleared on : ${ new Date().toUTCString() }`,
-					'utf-8'
-				);
+    for ( const log of logs ) {
+      try {
+        await fs.writeFileAsync(
+          path.join(logsDirectory,log),
+          `Cleared on : ${ new Date().toUTCString() }`,
+          'utf-8'
+        );
 
-				cleared.push(log);
-			} catch(e) {
-				failed.push(log);
-			}
-		}
+        cleared.push(log);
+      } catch(e) {
+        failed.push(log);
+      }
+    }
 
-		res.json({
-			success:true,
-			cleared,
-			failed
-		});		
+    res.json({
+      success:true,
+      cleared,
+      failed
+    });    
 
-	} catch(e) {
-		return next(generateError('Could not clear logs...'));
-	}
+  } catch(e) {
+    return next(generateError('Could not clear logs...'));
+  }
 });
 
 

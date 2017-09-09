@@ -4,15 +4,15 @@ const
   fs         = require('fs');
 
 const
-	generateLog = require('../utils/generateLog');
+  generateLog = require('../utils/generateLog');
 
 const connection = new sequelize(
-	process.env.DB_NAME,
-	process.env.DB_USERNAME,
-	process.env.DB_PASSWORD,
+  process.env.DB_NAME,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
   {
-	  dialect:'mysql',
-	  logging:false
+    dialect:'mysql',
+    logging:false
   }
 );
 
@@ -64,11 +64,11 @@ connection.sync()
   //   return user;
   // })
   .then(async() => {
-  	//await generateLog('database','Successfully connected to database...');
+    //await generateLog('database','Successfully connected to database...');
   })
   .catch(async(err) => {
-  	await generateLog('fatal_errors',err);
-  	process.exit();
+    await generateLog('fatal_errors',err);
+    process.exit();
   });
 
 module.exports = {

@@ -225,118 +225,118 @@ router.get('/getVotingInfo',async(req,res,next) => {
 
 
 router.post('/report',async(req,res,next) => {
-	if ( MainSettings.ALLOW_REPORTING === 0 ) {
-		return res.json({
-			error:true,
-			message:'Reporting polls has been disabled...'
-		});
-	}
+  if ( MainSettings.ALLOW_REPORTING === 0 ) {
+    return res.json({
+      error:true,
+      message:'Reporting polls has been disabled...'
+    });
+  }
 
-	try {
-		const { reason,pollID } = req.body;
+  try {
+    const { reason,pollID } = req.body;
 
-		if (
-			!reason || !pollID || !Types.isString(reason) ||
-			!(Types.isString(reason) || Types.isNumber(reason))
-		) {
-			generateLog('polls',`
-				Missing data while reporting a poll,
-				User : ${ req.user }, data : ${ req.body }
-			`);
+    if (
+      !reason || !pollID || !Types.isString(reason) ||
+      !(Types.isString(reason) || Types.isNumber(reason))
+    ) {
+      generateLog('polls',`
+        Missing data while reporting a poll,
+        User : ${ req.user }, data : ${ req.body }
+      `);
 
-			return res.json({
-				error:true,
-				message:'Reason or poll is missing...'
-			});
-		}
+      return res.json({
+        error:true,
+        message:'Reason or poll is missing...'
+      });
+    }
 
-		const poll = await Poll.findOne({
-			where:{
-				id_poll:pollID
-			}
-		});
+    const poll = await Poll.findOne({
+      where:{
+        id_poll:pollID
+      }
+    });
 
-		if ( !poll ) {
-			return res.json({
-				error:true,
-				message:'Poll you are trying to report doesnt exist...'
-			});
-		}
+    if ( !poll ) {
+      return res.json({
+        error:true,
+        message:'Poll you are trying to report doesnt exist...'
+      });
+    }
 
-		if ( !poll.is_active ) {
-			return res.json({
-				error:true,
-				message:'This poll has been disabled...'
-			});
-		}
+    if ( !poll.is_active ) {
+      return res.json({
+        error:true,
+        message:'This poll has been disabled...'
+      });
+    }
 
-		if ( req.user.number_of_reports > maxReportsPerUserPerMonth ) {
-			return res.json({
-				error:true,
-				message:'Maximum number of reports for this month is exceded...'
-			});
-		}
+    if ( req.user.number_of_reports > maxReportsPerUserPerMonth ) {
+      return res.json({
+        error:true,
+        message:'Maximum number of reports for this month is exceded...'
+      });
+    }
 
-		const user = await Report.findOne({
-			where:{
-				UserIdUser:req.user.id_user,
-				PollIdPoll:pollID
-			}
-		});
+    const user = await Report.findOne({
+      where:{
+        UserIdUser:req.user.id_user,
+        PollIdPoll:pollID
+      }
+    });
 
-		if ( user ) {
-			return res.json({
-				error:true,
-				message:'You have already reported this poll...'
-			});
-		}
+    if ( user ) {
+      return res.json({
+        error:true,
+        message:'You have already reported this poll...'
+      });
+    }
 
-		if ( reason.length < 10 || reason.length > 100 ) {
-			return res.json({
-				error:true,
-				message:'Reason has to be in range of 10 and 100 characters...'
-			});
-		}
+    if ( reason.length < 10 || reason.length > 100 ) {
+      return res.json({
+        error:true,
+        message:'Reason has to be in range of 10 and 100 characters...'
+      });
+    }
 
-		await Report.create({
-			UserIdUser:req.user.id_user,
-			PollIdPoll:req.body.pollID,
-			reason
-		});
+    await Report.create({
+      UserIdUser:req.user.id_user,
+      PollIdPoll:req.body.pollID,
+      reason
+    });
 
-		await User.update({
-			number_of_reports:sequelize.literal('number_of_reports + 1'),
-		},{
-			where:{
-				id_user:req.user.id_user
-			}
-		});
+    await User.update({
+      number_of_reports:sequelize.literal('number_of_reports + 1'),
+    },{
+      where:{
+        id_user:req.user.id_user
+      }
+    });
 
-		const numberOfPollReports = await Report.count({
-			where:{
-				PollIdPoll:pollID
-			}
-		});
+    const numberOfPollReports = await Report.count({
+      where:{
+        PollIdPoll:pollID
+      }
+    });
 
-		if ( numberOfPollReports >= reportsForBlockingPoll ) {
-			await Poll.update({
-				is_active:false,
-				closed_at:sequelize.literal('CURRENT_TIMESTAMP'),
-				disabled_by_reports:true
-			},{
-				where:{
-					id_poll:pollID
-				}
-			});
-		}
+    if ( numberOfPollReports >= reportsForBlockingPoll ) {
+      await Poll.update({
+        is_active:false,
+        closed_at:sequelize.literal('CURRENT_TIMESTAMP'),
+        disabled_by_reports:true
+      },{
+        where:{
+          id_poll:pollID
+        }
+      });
+    }
 
-		res.json({
-			success:true
-		});
+    res.json({
+      success:true
+    });
 
-	} catch(e) {
-		return next(generateError('Something went wrong, please try again...'));
-	}
+  } catch(e) {
+    return next(generateError('Something went wrong, please try again...'));
+  }
 });
 
 
@@ -359,10 +359,10 @@ router.post('/disablePoll',async(req,res,next) => {
     }
 
     if ( !poll.is_active ) {
-    	return res.json({
-    		error:true,
-    		message:'This poll is already disabled...'
-    	});
+      return res.json({
+        error:true,
+        message:'This poll is already disabled...'
+      });
     }
 
     if ( poll.UserIdUser !== req.user.id_user ) {

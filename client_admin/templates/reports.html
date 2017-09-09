@@ -1,1 +1,14 @@
 <h1>Reports</h1>
+<div>
+  <div ng-if="reports !== null && reports.length === 0" class="alert alert-info">
+    <p>No reports at the moment...</p>
+  </div>
+  <ul ng-if="reports !== null && reports.length > 0" class="list-group">
+    <li ng-repeat="report in reports" class="list-group-item">
+      <p>Poll reported : {{ report.Poll.poll }}</p>
+      <p>Reported by : {{ report.User.username }}</p>
+      <p>Reported on : {{ report.report_date | date }}</p>
+      <p>Reason : {{ report.reason }}</p>
+    </li>
+  </ul>
+</div>
