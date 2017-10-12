@@ -38,27 +38,10 @@
           id_poll:pollID
         }
       }).then(function(response){
-        console.log(response.data);
-
         if ( response.data.success ) {
-          var
-            len   = $scope.allPolls.length,
-            index = -1,
-            i     = 0;
-
-          for ( ; i < len ; i++ ) {
-            if ( $scope.allPolls[i].id_poll === pollID ) {
-              index = i;
-              break;
-            }
-          }
-
-          if ( index !== -1 ) {
-            $scope.allPolls.splice(index,1);
-          }
-
-        } else {
-
+          const index = $scope.allPolls.findIndex(x => x.id_poll === pollID);
+          
+          if ( index !== -1 ) $scope.allPolls.splice(index,1);
         }
       }).catch(function(error){
         console.log(error);
