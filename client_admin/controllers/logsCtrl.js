@@ -28,36 +28,36 @@
         });
     }
 
-    $scope.hideContentArea = function() {
+    $scope.hideContentArea = () => {
       $scope.logContent = '';
     }
 
-    $scope.clearLog = function(logFile) {
+    $scope.clearLog = logFile => {
       $http({
         method:'POST',
         url:'/api/admin/clearLog',
         data:{
           logFile:logFile
         }
-      }).then(function(response){
+      }).then(response => {
         if ( response.data.success ) {
           $scope.logContent = 'Cleared';
         }
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }
 
-    $scope.getLogFile = function(logFile) {
+    $scope.getLogFile = logFile => {
       $http({
         method:'POST',
         url:'/api/admin/getLogFile',
         data:{
           log:logFile
         }
-      }).then(function(response){
+      }).then(response => {
         $scope.logContent = response.data;
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }

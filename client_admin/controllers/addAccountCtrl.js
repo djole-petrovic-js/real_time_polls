@@ -17,22 +17,22 @@
     $http({
       method:'GET',
       url:'/api/admin/getRoles'
-    }).then(function(response){
+    }).then(response => {
       $scope.roles = response.data;
-    }).catch(function(error){
+    }).catch(error => {
       console.log(error);
     });
 
-    $scope.addUserAccount = function() {
+    $scope.addUserAccount = () => {
       $http({
         method:'POST',
         url:'/api/admin/addAccount',
         data:{
           user:$scope.userData
         }
-      }).then(function(response){
+      }).then(response => {
         console.log(response);
-      }).catch(function(error){
+      }).catch(error => {
         console.log(error);
       });
     }

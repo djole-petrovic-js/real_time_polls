@@ -6,13 +6,13 @@
   .controller('allPollsCtrl',['$scope','$http',function($scope,$http){
     $scope.allPolls = null;
 
-    $http.get('/api/admin/getAllPolls').then(function(response){
+    $http.get('/api/admin/getAllPolls').then(response => {
       $scope.allPolls = response.data;
-    }).catch(function(err){
+    }).catch(err => {
       console.log(err);
     });
 
-    $scope.enableDisablePoll = function(pollID,index) {
+    $scope.enableDisablePoll = (pollID,index) => {
       $http({
         method:'POST',
         url:'/api/admin/enableDisablePoll',
@@ -30,20 +30,20 @@
       });
     }
 
-    $scope.deletePoll = function(pollID) {
+    $scope.deletePoll = pollID => {
       $http({
         method:'POST',
         url:'/api/admin/deletePoll',
         data:{
           id_poll:pollID
         }
-      }).then(function(response){
+      }).then(response => {
         if ( response.data.success ) {
           const index = $scope.allPolls.findIndex(x => x.id_poll === pollID);
           
           if ( index !== -1 ) $scope.allPolls.splice(index,1);
         }
-      }).catch(function(error){
+      }).catch(error => {
         console.log(error);
       });
     }

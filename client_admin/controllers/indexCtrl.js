@@ -9,33 +9,21 @@
     $scope.operationInProgress = false;
     $scope.canChangeSettings = null;
 
-    $http.get('/api/admin/getMainSettings').then(function(response){
-      var 
-        settings = [],
-        len      = response.data.settings.length,
-        i         = 0;
+    $http.get('/api/admin/getMainSettings').then(response => {
+      $scope.mainSettings = response.data.settings.map(setting => {
+        let [settingsName,settingsValue] = setting.split('=');
 
-      for ( ; i < len ; i++ ) {
-        var 
-          tempSettings  = response.data.settings[i].split('='),
-          settingsName  = tempSettings[0],
-          settingsValue = tempSettings[1];
+        settingsValue = isNaN(+settingsValue) ? settingsValue : +settingsValue;
 
-        settings.push({
-          settingsName:settingsName,
-          settingsValue:settingsValue
-        });
-      }
+        return { settingsName,settingsValue };
+      });
 
-      settingsValue = isNaN(+settingsValue) ? settingsValue : +settingsValue;
-      $scope.mainSettings = settings;
       $scope.canChangeSettings = response.data.canChangeSettings;
-
-    }).catch(function(err){
+    }).catch(err => {
       console.log(err);
     });  
 
-    $scope.changeSetting = function(settingsName,settingsValue) {
+    $scope.changeSetting = (settingsName,settingsValue) => {
       $scope.operationInProgress = true;
 
       $http({
@@ -46,7 +34,7 @@
           settingsName:settingsName,
           settingsValue:settingsValue
         }
-      }).then(function(response){
+      }).then(response => {
         $scope.operationInProgress = false;
 
         if ( response.data.success ) {
@@ -56,7 +44,7 @@
         if ( response.data.error ) {
           console.log(response.data.message);
         }
-      }).catch(function(err){
+      }).catch(err => {
         $scope.operationInProgress = false;
         console.log(err);
       });

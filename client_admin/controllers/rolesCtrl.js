@@ -9,9 +9,9 @@
     $http({
       method:'GET',
       url:'/api/admin/getRoles'
-    }).then(function(response){
+    }).then(response => {
       $scope.roles = response.data;
-    }).catch(function(err){
+    }).catch(err => {
       console.log(err);
     });
   }]);

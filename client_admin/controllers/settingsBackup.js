@@ -9,13 +9,14 @@
       $scope.password = '';
       $scope.operationInProgress = false;
 
-      $scope.uploadSettings = function() {
+      $scope.uploadSettings = () => {
         if ( !$scope.password ) {
           return alert('Enter password');
         }
 
-        var formData = new FormData();
-        var fileInput = doc.getElementById('fileInput');
+        const
+          formData = new FormData();
+          fileInput = doc.getElementById('fileInput');
 
         formData.append('file',fileInput.files[0]);
         formData.append('password',$scope.password);
@@ -27,7 +28,7 @@
             'Content-Type':undefined
           },
           data:formData
-        }).then(function(response){
+        }).then(response => {
           console.log(response.data);
           if ( response.data.success ) {
             $scope.settingsBackups.unshift({
@@ -35,12 +36,12 @@
               birthtime:new Date()
             });  
           }
-        }).catch(function(err){
+        }).catch(err => {
           console.log(err);
         });
       }
 
-      $scope.applyBackup = function(backupName) {
+      $scope.applyBackup = backupName => {
         if ( !$scope.password ) {
           return alert('Enter password');
         }
@@ -54,16 +55,16 @@
             password:$scope.password,
             backupName:backupName
           }
-        }).then(function(response){
+        }).then(response => {
           $scope.operationInProgress = false;
           console.log(response.data);
-        }).catch(function(err){
+        }).catch(err => {
           $scope.operationInProgress = false;
           console.log(err);
         });
       }
 
-      $scope.deleteBackup = function(backupName,index) {
+      $scope.deleteBackup = (backupName,index) => {
         if ( !$scope.password ) {
           return alert('Enter password');
         }
@@ -77,7 +78,7 @@
             backupName:backupName,
             password:$scope.password
           }
-        }).then(function(response){
+        }).then(response => {
           $scope.operationInProgress = false;
           $scope.password = '';
 
@@ -89,15 +90,15 @@
             alert(response.data.message);
           }
 
-        }).catch(function(err){
+        }).catch(err => {
           $scope.operationInProgress = false;
           console.log(err);
         });
       }
 
-      $http.get('/api/admin/getMainSettingsBackups').then(function(response){
+      $http.get('/api/admin/getMainSettingsBackups').then(response => {
         $scope.settingsBackups = response.data.backups;
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
 
