@@ -11,26 +11,19 @@
     $scope.choicesHTML;
     $scope.showUsername = true;
 
-    $scope.renderChoices = function() {
-      var numChoices = Number($scope.numberOfChoices);
+    $scope.renderChoices = () => {
+      const numChoices = Number($scope.numberOfChoices);
+      const choices = [];
 
-      var choices = [];
-
-      for ( var i = 1 ; i <= numChoices ; i++) {
+      for ( let i = 1 ; i <= numChoices ; i++) {
         choices.push('<input class="form-control choices" type="text" placeholder="Enter"/>');
       }
 
       $scope.choicesHTML = $sce.trustAsHtml(choices.join(''));
     }
 
-    $scope.addPoll = function() {
-      var 
-        allChoices = Array.prototype.slice.call($('.choices')),
-        values     = [];
-
-      for ( var i = 0 , len = allChoices.length ; i < len ; i++ ) {
-        values.push(allChoices[i].value);
-      }
+    $scope.addPoll = () => {
+      const values = Array.from($('.choices')).map(x => x.value);
 
       var data = {
         pollName:$scope.pollName,
@@ -42,7 +35,7 @@
         method:'POST',
         url:'/api/public/addPoll',
         data:data
-      }).then(function(response){
+      }).then(response => {
         console.log(response.data);
         if ( response.data.success ) {
           socket.emit('pollAdded',{
@@ -51,7 +44,7 @@
         } else {
           console.log(response.data);
         }
-      }).catch(function(error){
+      }).catch(error => {
         console.log(error);
       });
     }

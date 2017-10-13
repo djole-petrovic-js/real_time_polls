@@ -11,11 +11,12 @@
 
     $http.get('/api/admin/getMainSettings').then(response => {
       $scope.mainSettings = response.data.settings.map(setting => {
-        let [settingsName,settingsValue] = setting.split('=');
+        const [settingsName,settingsValue] = setting.split('=');
 
-        settingsValue = isNaN(+settingsValue) ? settingsValue : +settingsValue;
-
-        return { settingsName,settingsValue };
+        return {
+          settingsName,
+          settingsValue:isNaN(+settingsValue) ? settingsValue : +settingsValue
+        };
       });
 
       $scope.canChangeSettings = response.data.canChangeSettings;

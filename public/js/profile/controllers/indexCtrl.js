@@ -17,25 +17,25 @@
 
     $http
       .get('/api/public/getUserInfo')
-      .then(function(response){
+      .then(response => {
         $scope.user = response.data;
       })
-      .catch(function(error){
+      .catch(error => {
         console.log(error);
       });
 
-    $scope.confirmUsernameChange = function() {
+    $scope.confirmUsernameChange = () => {
       $scope.changeUsername();
     }
 
-    $scope.changeUsername = function() {
+    $scope.changeUsername = () => {
       $http({
         method:'POST',
         url:'/api/public/changeUsername',
         data:{
           newUsername:$scope.newUsername
         }
-      }).then(function(response){
+      }).then(response => {
 
         if ( response.data.success ) {
           $scope.user.username = $scope.newUsername;
@@ -44,44 +44,44 @@
           console.log(response.data);
         }
         
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }
 
-    $scope.confirmDeleteAccount = function() {
+    $scope.confirmDeleteAccount = () => {
       $scope.deleteAccount();
     }
 
-    $scope.deleteAccount = function() {
+    $scope.deleteAccount = () => {
       $http({
         method:'POST',
         url:'/api/public/deleteAccount',
         data:{
           password:$scope.delAccountPassword
         }
-      }).then(function(response){
+      }).then(response => {
         if ( response.data.success ) {
           window.location.href = '/';
         }
         
-      }).catch(function(error){
+      }).catch(error => {
         console.log(error);
       })
     }
 
-    $scope.confirmPasswordChange = function() {
+    $scope.confirmPasswordChange = () =>{
       $scope.changePassword();
     }
 
-    $scope.changePassword = function(){
+    $scope.changePassword = () => {
       $http({
         method:'POST',
         url:'/api/public/changePassword',
         data:$scope.passwords
-      }).then(function(response){
+      }).then(response => {
         console.log(response);
-      }).catch(function(error){
+      }).catch(error => {
         console.log(error);
       });
     }

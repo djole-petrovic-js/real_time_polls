@@ -6,71 +6,56 @@
   .controller('myPollsCtrl',['$scope','$http',function($scope,$http){
     $scope.polls = null;
 
-    $http.get('/api/public/getPolls').then(function(response){
-      for ( var i = 0 , len = response.data.length ; i < len ; i++ ) {
-        response.data[i].showOptions = false;
-      }
+    $http.get('/api/public/getPolls').then(response => {
+      $scope.polls = response.data.map(x => {
+        x.showOptions = false;
 
-      $scope.polls = response.data;
-    }).catch(function(error){
+        return x;
+      });
+    }).catch(error => {
 
     });
 
-    var findPollIndexById = function(pollID) {
-      for ( var i = 0 , len = $scope.polls.length ; i < len ; i++ ) {
-        if ( $scope.polls[i].id_poll === pollID ) {
-          return i;
-        }
-      }
-
-      return -1;
-    }
-
-    $scope.confirmDeletePoll = function(pollID) {
+    $scope.confirmDeletePoll = pollID => {
       $scope.deletePoll(pollID);
     }
 
-    $scope.deletePoll = function(pollID) {
+    $scope.deletePoll = pollID => {
       $http({
         method:'POST',
         url:'/api/public/deletePoll',
         data:{
           pollID:pollID
         }
-      }).then(function(response){
-        var index = findPollIndexById(pollID);
+      }).then(response => {
+        const index = $scope.polls.findIndex(x => x.id_poll === pollID);
 
-        if ( index !== -1 ) {
-          $scope.polls.splice(index,1);
-        }
+        if ( index !== -1 ) $scope.polls.splice(index,1);
 
-      }).catch(function(err){
+      }).catch(err => {
         console.log(err);
       });
     }
 
-    $scope.confirmDisablePoll = function(pollID) {
+    $scope.confirmDisablePoll = pollID => {
       $scope.disablePoll(pollID);
     }
 
-    $scope.disablePoll = function(pollID) {
+    $scope.disablePoll = pollID => {
       $http({
         method:'POST',
         url:'/api/public/disablePoll',
         data:{
           pollID:pollID
         }
-      }).then(function(response){
-        var index = findPollIndexById(pollID);
+      }).then(response => {
+        const index = $scope.polls.findIndex(x => x.id_poll === pollID);
 
-        if ( index !== -1 ) {
-          $scope.polls[index].is_active = false;
-        }
-      }).catch(function(response){
-        console.log(response);
+        if ( index !== -1 ) $scope.polls[index].is_active = false;
+      }).catch(err => {
+        console.log(err);
       });
     }
 
   }]);
-
 }());
