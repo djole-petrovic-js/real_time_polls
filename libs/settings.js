@@ -75,7 +75,7 @@ class Settings {
         try {
           const settings = await fs.readFileAsync(this.mainSettingsPath,'utf-8');
 
-          resolve(settings.split('\n'));
+          resolve(settings.split('\n').filter(x => !!x));
         } catch(e) {
           reject(e);
         }
@@ -83,7 +83,8 @@ class Settings {
     } else {
       return fs
         .readFileSync(this.mainSettingsPath,'utf-8')
-        .split('\n');
+        .split('\n')
+        .filter(x => !!x);
     }
   }
 
