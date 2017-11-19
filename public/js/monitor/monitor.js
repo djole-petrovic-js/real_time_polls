@@ -145,6 +145,7 @@
         id_poll:pollID  
       }
     }).done(function(response){
+      console.log(response);
       if ( response.error ) {
         return alert(response.message);
       }

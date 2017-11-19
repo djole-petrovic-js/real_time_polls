@@ -440,7 +440,7 @@ router.post('/vote',async(req,res,next) => {
   try {
     const
       { id_choice,id_poll } = req.body,
-      { id_user }            = req.user;
+      { id_user }           = req.user;
 
     if (
       !id_choice || 
@@ -507,9 +507,8 @@ router.post('/vote',async(req,res,next) => {
     });
 
   } catch(e) {
-    try {
-      await generateLog('polls',e);
-    } catch(e) { }
+    generateLog('polls',e);
+
     return next(generateError('Could not vote, please try again...'));
   }
 });

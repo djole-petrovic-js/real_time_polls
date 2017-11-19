@@ -4,7 +4,7 @@
 
   angular.module('realTimePolls')
   .controller('addPollCtrl',['$scope','$http','$sce',function($scope,$http,$sce){
-    var socket = io();
+    const socket = io();
 
     //$scope.numberOfChoices = 2;
     $scope.pollName = '';
@@ -25,7 +25,7 @@
     $scope.addPoll = () => {
       const values = Array.from($('.choices')).map(x => x.value);
 
-      var data = {
+      const data = {
         pollName:$scope.pollName,
         choices:values,
         showUsername:$scope.showUsername

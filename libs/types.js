@@ -1,5 +1,9 @@
 class Types {
   static isNumber(object) {
+      if ( typeof object === 'string' ) {
+        return !isNaN(+object);
+      }
+
       return Types.getType(object) === Types.allTypes.number;
   }
 
