@@ -1,6 +1,7 @@
 const pollsRouter = (io) => {
   const
     express = require('express'),
+    moment  = require('moment'),
     router  = express.Router();
 
   const
@@ -27,7 +28,7 @@ const pollsRouter = (io) => {
       const
         limit          = pollsPerPage,
         offset         = page * pollsPerPage - pollsPerPage,
-        numberOfPolls = await Poll.count({ where:q }),
+        numberOfPolls  = await Poll.count({ where:q }),
         lastPage       = Math.ceil(numberOfPolls / pollsPerPage);
 
       const polls = await Poll.findAll({
@@ -45,6 +46,7 @@ const pollsRouter = (io) => {
         q:req.query.q || null,
         lastPage,  
         polls,
+        moment
       });
 
     } catch(e) {

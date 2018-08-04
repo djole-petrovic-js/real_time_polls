@@ -1,5 +1,5 @@
 const
-  path      = require('path'),
+  path     = require('path'),
   readline = require('readline');
 
 const

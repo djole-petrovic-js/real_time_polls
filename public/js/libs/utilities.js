@@ -82,18 +82,19 @@ var Utilities = (function(doc){
   }
 
   var makeChart = function(ctx,opts) {
-    /*
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
-      }
-    } */
-
     return new Chart(ctx,{
+      options:{
+        scales:{
+          yAxes:[{
+            ticks:{
+              callback:function(value) {
+                if (value % 1 === 0) { return value; }
+              },
+              beginAtZero:true
+            }
+          }]
+        }
+      },
       type:opts.type,
       data: {
         labels:opts.labels,

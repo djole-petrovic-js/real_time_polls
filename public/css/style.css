@@ -1,22 +1,35 @@
 body {
-  padding: 50px;
+  padding: 80px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background:black;
 }
 
 a {
   color: #00B7FF;
 }
 
-.chatbox {
-  border:1px solid black;
-  border-radius: 6px;
-  width:98%;
-  height: 200px;
-  overflow: scroll;
+h1,h2,h3 {
+  color:red;
 }
 
-.chatbox ul {
-  width: 50%;
+.chatbox {
+  border:1px solid white;
+  border-radius: 6px;
+  width:100%;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.chatbox ul li {
+  margin-bottom: 3%;
+}
+
+#reportForm {
+  display: none;
+}
+
+table tr {
+  background: white;
 }
 
 /*#canvasChart {

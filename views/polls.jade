@@ -8,7 +8,9 @@ block content
       ul.list-group
         for poll in polls
           li.list-group-item
-            a(href='/polls/monitor/#{ poll.id_poll }/#{ poll.poll }') #{ poll.poll }
+            a(href='/polls/monitor/#{ poll.id_poll }/#{ poll.poll }') #{ poll.poll } (#{poll.votes} Votes)
+            br
+            p= '(Created at: ' + moment(poll.created_date).format("DD/MM/YYYY") + ')'
 
   div.row
     div.col-md-12

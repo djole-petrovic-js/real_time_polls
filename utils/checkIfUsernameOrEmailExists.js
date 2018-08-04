@@ -15,7 +15,7 @@ const checkIfUsernameOrEmailExists = async({ username,email }) => {
 
     return {
       usernameExists:!!checkUsername,
-      emailExists:!!checkUsername
+      emailExists:!!checkEmail
     };
   } catch(e) {
     throw e;

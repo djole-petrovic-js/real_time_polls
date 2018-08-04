@@ -62,6 +62,10 @@
     $btnSendMsg      = $('#btnSendMsg'),
     $msgList         = $('#msgList'),
     $chartType       = $('#chartType'),
+    $hideShowChat    = $('#hideChat'),
+    $chatBox         = $('.chatbox'),
+    $chatForm        = $('#chatForm'),
+    $numberOfVotes   = $('#numberOfVotesSpan'),
     socket           = io();
 
   var chartInfo = {
@@ -77,6 +81,31 @@
   $chartType.val(config.chartType);
   $colorPicker.val(config.chartBackground);
   $chartBackground.css('background-color',config.chartBackground);
+
+  /*
+
+    Enter on document sends message and clear message box
+
+  */
+
+  $(document).keypress(function (e) {
+    if (e.which == 13) {
+      $btnSendMsg.click();
+    }
+  });
+
+  $hideShowChat.on('click',(e) => {
+    if ( $hideShowChat.attr('data-show') == 1 ) {
+      $hideShowChat.attr('data-show',0);
+      $hideShowChat.text('Show Chat');
+    } else {
+      $hideShowChat.text('Hide Chat');
+      $hideShowChat.attr('data-show',1);
+    }
+
+    $chatBox.toggle(400);
+    $chatForm.toggle();
+  });
 
   $colorPicker.on('change',function(){
     var color = $colorPicker.val();
@@ -104,6 +133,8 @@
       pollID:pollID,
       message:msg
     });
+
+    $msgBox.val('');
   });
 
   socket.on('msgSentServer',function(data){
@@ -116,6 +147,12 @@
       '</li>'
     ].join('');
 
+
+    // if user is reading latest messages, scroll down automaticly
+    if( Math.abs($chatBox.scrollTop() - ($chatBox.prop('scrollHeight') - $chatBox.outerHeight())) < 5 ) {
+      $(".chatbox").stop().animate({ scrollTop: $(".chatbox")[0].scrollHeight}, 1000);
+    }
+
     $msgList.append(html);
   });
 
@@ -125,6 +162,11 @@
 
       chartInfo.chart.data.datasets[0].data[index] += 1;
       chartInfo.chart.update();
+
+      // update number of polls
+      $numberOfVotes.text(
+        Number($numberOfVotes.text()) + 1
+      );
     }
   });
 
@@ -159,6 +201,11 @@
         id_poll:pollID,
         id_choice:vote
       });
+
+      // update number of polls
+      $numberOfVotes.text(
+        Number($numberOfVotes.text()) + 1
+      );
 
     }).catch(function(err){
       console.log(err);

@@ -12,8 +12,8 @@ rl.question('Search for ?\n',async(q) => {
   try {
     const  
       replaceWith   = await getInput('Replace With ?\n'),
-       caseSensitive = await getInput('Case sensitive? (y/n)\n'),
-       regex         = new RegExp(q,caseSensitive === 'y' ? 'g' : 'gi');
+      caseSensitive = await getInput('Case sensitive? (y/n)\n'),
+      regex         = new RegExp(q,caseSensitive === 'y' ? 'g' : 'gi');
 
     rl.write('Search regex : ' + regex + '\n');
 

@@ -422,9 +422,7 @@ router.post('/deletePoll',async(req,res,next) => {
     });
 
   } catch(e) {
-    try {
-      await generateError('polls',e);
-    } catch(e) { }
+    generateLog('polls',e);
 
     return next(generateError('Could not delete poll, please try again...'));
   }
